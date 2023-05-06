@@ -1,6 +1,7 @@
 package fr.camposcosta.customerapi.service;
 
 import fr.camposcosta.customerapi.entity.Customer;
+import fr.camposcosta.customerapi.exception.InvalidRequestException;
 import fr.camposcosta.customerapi.model.CustomerRequest;
 import fr.camposcosta.customerapi.model.CustomerResponse;
 import fr.camposcosta.customerapi.repository.CustomerRepository;
@@ -17,7 +18,12 @@ public class CustomerService {
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
 
-        // TODO : check email is not taken
+        // check email is not taken
+        if(customerRepository.existsByEmail(customerRequest.email())) {
+            throw new InvalidRequestException(
+                    String.format("Email %s already exists", customerRequest.email())
+            );
+        }
 
         Customer customer = customerRepository.save(
                 Customer.builder()
