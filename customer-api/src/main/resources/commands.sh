@@ -1,0 +1,1 @@
+docker run --name customer-db -p 5432:5432 -v customer-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=customerdb -d postgres:15-alpine

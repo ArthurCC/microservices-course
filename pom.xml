@@ -11,6 +11,10 @@
 
   <name>microservices-course</name>
 
+  <modules>
+    <module>customer-api</module>
+  </modules>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
@@ -32,7 +36,10 @@
   </dependencyManagement>
 
   <dependencies>
-
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
