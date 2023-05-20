@@ -19,18 +19,18 @@ public class CustomerService {
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
 
         // check email is not taken
-        if(customerRepository.existsByEmail(customerRequest.email())) {
+        if (customerRepository.existsByEmail(customerRequest.email())) {
             throw new InvalidRequestException(
                     String.format("Email %s already exists", customerRequest.email())
             );
         }
 
         Customer customer = customerRepository.save(
-                Customer.builder()
-                        .firstName(customerRequest.firstName())
-                        .lastName(customerRequest.lastName())
-                        .email(customerRequest.email())
-                        .build()
+                new Customer(
+                        customerRequest.firstName(),
+                        customerRequest.lastName(),
+                        customerRequest.email()
+                )
         );
 
         return new CustomerResponse(
