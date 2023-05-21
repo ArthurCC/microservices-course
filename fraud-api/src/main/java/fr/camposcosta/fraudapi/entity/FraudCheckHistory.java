@@ -3,7 +3,6 @@ package fr.camposcosta.fraudapi.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-// TODO add constraints
 @Entity
 public class FraudCheckHistory {
 
@@ -24,35 +23,13 @@ public class FraudCheckHistory {
             generator = "fraud_id_generator"
     )
     private Integer id;
+
+    @Column(nullable = false)
     private Integer customerId;
+
+    @Column(nullable = false)
     private Boolean isFraudster;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Boolean getFraudster() {
-        return isFraudster;
-    }
-
-    public void setFraudster(Boolean fraudster) {
-        isFraudster = fraudster;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

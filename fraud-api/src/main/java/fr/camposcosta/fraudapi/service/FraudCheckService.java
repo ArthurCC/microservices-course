@@ -1,6 +1,7 @@
 package fr.camposcosta.fraudapi.service;
 
 import fr.camposcosta.fraudapi.entity.FraudCheckHistory;
+import fr.camposcosta.fraudapi.model.FraudCheckResponse;
 import fr.camposcosta.fraudapi.repository.FraudCheckHistoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class FraudCheckService {
         this.fraudCheckHistoryRepository = fraudCheckHistoryRepository;
     }
 
-    public boolean isFraudulentCustomer(Integer customerId) {
+    public FraudCheckResponse isFraudulentCustomer(Integer customerId) {
 
         // save in db
         fraudCheckHistoryRepository.save(
@@ -27,6 +28,6 @@ public class FraudCheckService {
         );
 
         // We mock fraud logic and always assume customer is clear
-        return false;
+        return new FraudCheckResponse(false);
     }
 }
