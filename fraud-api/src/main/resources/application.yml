@@ -4,3 +4,16 @@ server:
 spring:
   application:
     name: fraud-api
+
+  # db
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/frauddb
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  mvc:
+    log-resolved-exception: true

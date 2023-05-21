@@ -1,4 +1,4 @@
-package fr.camposcosta.fraud;
+package fr.camposcosta.fraudapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
