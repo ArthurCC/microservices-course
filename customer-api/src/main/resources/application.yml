@@ -17,3 +17,7 @@ spring:
 
   mvc:
     log-resolved-exception: true
+
+app:
+  fraud-api:
+    url: http://localhost:8081/api/v1/fraud-check/{customerId}
