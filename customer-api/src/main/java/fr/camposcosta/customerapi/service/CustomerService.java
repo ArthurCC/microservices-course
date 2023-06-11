@@ -56,6 +56,7 @@ public class CustomerService {
         );
 
         if(fraudCheckResponse.isFraudster() == null) {
+            // Should never happen
             throw new FatalException("isFraudster is null");
         }
 
