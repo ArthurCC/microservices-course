@@ -20,4 +20,5 @@ spring:
 
 app:
   fraud-api:
-    url: http://localhost:8081/api/v1/fraud-check/{customerId}
+    # we indicate the name of the service instead of the domain url
+    url: http://fraud-api/api/v1/fraud-check/{customerId}
