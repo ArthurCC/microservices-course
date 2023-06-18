@@ -1,5 +1,6 @@
 package fr.camposcosta.customerapi.service;
 
+import fr.camposcosta.customerapi.FraudClient;
 import fr.camposcosta.customerapi.entity.Customer;
 import fr.camposcosta.customerapi.exception.FatalException;
 import fr.camposcosta.customerapi.exception.InvalidRequestException;
@@ -8,26 +9,21 @@ import fr.camposcosta.customerapi.model.CustomerResponse;
 import fr.camposcosta.customerapi.model.FraudCheckResponse;
 import fr.camposcosta.customerapi.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
 public class CustomerService {
 
-    private final RestTemplate restTemplate;
     private final CustomerRepository customerRepository;
-    private final String fraudApiUrl;
+    private final FraudClient fraudClient;
 
     public CustomerService(
             CustomerRepository customerRepository,
-            RestTemplate restTemplate,
-            @Value("${app.fraud-api.url}") String fraudApiUrl
+            FraudClient fraudClient
     ) {
         this.customerRepository = customerRepository;
-        this.restTemplate = restTemplate;
-        this.fraudApiUrl = fraudApiUrl;
+        this.fraudClient = fraudClient;
     }
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
@@ -49,11 +45,13 @@ public class CustomerService {
         );
 
         // check if fraudster
-        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                fraudApiUrl,
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+//        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
+//                fraudApiUrl,
+//                FraudCheckResponse.class,
+//                customer.getId()
+//        );
+
+        FraudCheckResponse fraudCheckResponse = fraudClient.checkFraudster(customer.getId());
 
         if(fraudCheckResponse.isFraudster() == null) {
             // Should never happen
