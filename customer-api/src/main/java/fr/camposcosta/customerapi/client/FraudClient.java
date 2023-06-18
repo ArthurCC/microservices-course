@@ -1,4 +1,4 @@
-package fr.camposcosta.customerapi;
+package fr.camposcosta.customerapi.client;
 
 import fr.camposcosta.customerapi.model.FraudCheckResponse;
 import org.springframework.cloud.openfeign.FeignClient;

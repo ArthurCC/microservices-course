@@ -1,6 +1,7 @@
 package fr.camposcosta.customerapi.service;
 
-import fr.camposcosta.customerapi.FraudClient;
+import fr.camposcosta.customerapi.client.FraudClient;
+import fr.camposcosta.customerapi.client.NotificationClient;
 import fr.camposcosta.customerapi.entity.Customer;
 import fr.camposcosta.customerapi.exception.FatalException;
 import fr.camposcosta.customerapi.exception.InvalidRequestException;
@@ -17,13 +18,16 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
+    private final NotificationClient notificationClient;
 
     public CustomerService(
             CustomerRepository customerRepository,
-            FraudClient fraudClient
+            FraudClient fraudClient,
+            NotificationClient notificationClient
     ) {
         this.customerRepository = customerRepository;
         this.fraudClient = fraudClient;
+        this.notificationClient = notificationClient;
     }
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
@@ -61,6 +65,9 @@ public class CustomerService {
         if(fraudCheckResponse.isFraudster()) {
             log.error("Customer [id={}] is fraudulent", customer.getId());
         }
+
+        // send notification
+        notificationClient.sendNotification(customer.getId());
 
         return new CustomerResponse(
                 customer.getId(),
