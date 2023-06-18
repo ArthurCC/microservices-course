@@ -1,8 +1,5 @@
 package fr.camposcosta.customerapi.entity;
 
-import lombok.Builder;
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -43,23 +40,11 @@ public class Customer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
