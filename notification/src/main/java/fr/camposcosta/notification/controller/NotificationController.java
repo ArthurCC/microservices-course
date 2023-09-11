@@ -1,12 +1,10 @@
 package fr.camposcosta.notification.controller;
 
+import fr.camposcosta.notification.model.NotificationRequest;
 import fr.camposcosta.notification.service.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/notification")
@@ -19,12 +17,12 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping("/{customerId}")
-    public ResponseEntity<Void> createNotification(@PathVariable Integer customerId) {
+    @PostMapping
+    public ResponseEntity<Void> createNotification(@RequestBody NotificationRequest notificationRequest) {
 
-        log.info("create notification [customerId={}]", customerId);
+        log.info("create notification [{}]", notificationRequest);
 
-        notificationService.createNotification(customerId);
+        notificationService.createNotification(notificationRequest);
 
         return ResponseEntity.ok(null);
     }

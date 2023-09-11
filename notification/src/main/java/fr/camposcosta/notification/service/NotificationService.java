@@ -1,6 +1,7 @@
 package fr.camposcosta.notification.service;
 
 import fr.camposcosta.notification.entity.Notification;
+import fr.camposcosta.notification.model.NotificationRequest;
 import fr.camposcosta.notification.repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,14 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
-    public void createNotification(Integer customerId) {
+    public void createNotification(NotificationRequest notificationRequest) {
 
         notificationRepository.save(
                 new Notification(
-                        customerId,
+                        notificationRequest.customerId(),
+                        notificationRequest.customerEmail(),
+                        notificationRequest.sender(),
+                        notificationRequest.message(),
                         LocalDateTime.now()
                 )
         );

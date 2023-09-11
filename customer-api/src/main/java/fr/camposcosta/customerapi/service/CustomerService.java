@@ -8,6 +8,7 @@ import fr.camposcosta.customerapi.exception.InvalidRequestException;
 import fr.camposcosta.customerapi.model.CustomerRequest;
 import fr.camposcosta.customerapi.model.CustomerResponse;
 import fr.camposcosta.customerapi.model.FraudCheckResponse;
+import fr.camposcosta.customerapi.model.NotificationRequest;
 import fr.camposcosta.customerapi.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,14 @@ public class CustomerService {
         }
 
         // send notification
-        notificationClient.sendNotification(customer.getId());
+        notificationClient.sendNotification(
+                new NotificationRequest(
+                        customer.getId(),
+                        customer.getEmail(),
+                        "arthuru",
+                        "Bienvenue mon fwe"
+                )
+        );
 
         return new CustomerResponse(
                 customer.getId(),

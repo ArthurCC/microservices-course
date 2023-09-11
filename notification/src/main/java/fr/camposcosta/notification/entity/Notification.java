@@ -6,14 +6,6 @@ import java.time.LocalDateTime;
 @Entity
 public class Notification {
 
-    public Notification(
-            Integer customerId,
-            LocalDateTime timestamp
-    ) {
-        this.customerId = customerId;
-        this.timestamp = timestamp;
-    }
-
     @Id
     @SequenceGenerator(
             name = "notification_id_generator",
@@ -30,5 +22,26 @@ public class Notification {
     private Integer customerId;
 
     @Column(nullable = false)
-    private LocalDateTime timestamp;
+    private String customerEmail;
+
+    private String sender;
+
+    private String message;
+
+    @Column(nullable = false)
+    private LocalDateTime sentAt;
+
+    public Notification(
+            Integer customerId,
+            String customerEmail,
+            String sender,
+            String message,
+            LocalDateTime sentAt
+    ) {
+        this.customerId = customerId;
+        this.customerEmail = customerEmail;
+        this.sender = sender;
+        this.message = message;
+        this.sentAt = sentAt;
+    }
 }
