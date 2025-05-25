@@ -18,9 +18,12 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNotification(@RequestBody NotificationRequest notificationRequest) {
+    public ResponseEntity<Void> createNotification(@RequestBody NotificationRequest notificationRequest) throws InterruptedException {
 
         log.info("create notification [{}]", notificationRequest);
+
+        // Simulate latency
+        Thread.sleep(5000);
 
         notificationService.createNotification(notificationRequest);
 
